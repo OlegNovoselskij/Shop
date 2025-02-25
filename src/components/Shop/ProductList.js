@@ -1,6 +1,6 @@
-'use client'
+'use client';
+import { Suspense, useEffect, useState } from 'react';
 import ProductItem from './ProductItem';
-import { useEffect, useState } from "react";
 import { getAllProducts } from '@/http';
 import Loading from './loading';
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -10,14 +10,21 @@ function ProductList({ selectedCategory, selectedSort }) {
     const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
     const searchParams = useSearchParams();
-    const category = searchParams.get("category"); 
-    
+    const category = searchParams.get('category'); 
+
     useEffect(() => {
         async function fetchProducts() {
-            const data = await getAllProducts();
-            setProducts(data);
-            setIsLoading(false);
+            try {
+                const data = await getAllProducts();
+                setProducts(data);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+                // Optionally, set an error state to display a message to the user
+            } finally {
+                setIsLoading(false);
+            }
         }
+
         fetchProducts();
     }, []);
 
@@ -34,14 +41,13 @@ function ProductList({ selectedCategory, selectedSort }) {
     // Фільтрація за категорією
     let filteredProducts = products;
     
-    if (selectedCategory) {
-        filteredProducts = products.filter(item => item.categoryId === selectedCategory);
-    } else if (category === 'woman') {
-        filteredProducts = products.filter(item => item.categoryId === 2);
-    } else if (category === 'men') {
-        filteredProducts = products.filter(item => item.categoryId === 1);
+    const activeCategory = selectedCategory || (category === 'woman' ? 2 : category === 'men' ? 1 : null);
+
+    if (activeCategory) {
+        filteredProducts = products.filter(item => item.categoryId === activeCategory);
     }
 
+    // Сортування
     if (selectedSort) {
         filteredProducts = [...filteredProducts].sort((a, b) => {
             switch (selectedSort) {
@@ -75,4 +81,10 @@ function ProductList({ selectedCategory, selectedSort }) {
     );
 }
 
-export default ProductList;
+export default function ProductListWithSuspense(props) {
+    return (
+        <Suspense fallback={<Loading />}>
+            <ProductList {...props} />
+        </Suspense>
+    );
+}

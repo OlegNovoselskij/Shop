@@ -19,18 +19,22 @@ const Product = () => {
 
   useEffect(() => {
     async function fetchProduct() {
-      const data = await getProduct(slug);
-      setProduct(data);
-      setIsLoading(false);
+      try {
+        const data = await getProduct(slug);
+        if (data) {
+          setProduct(data);
+        } else {
+          router.push("/404");
+        }
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      } finally {
+        setIsLoading(false);
+      }
     }
     fetchProduct();
   }, [slug]);
-
-  function handleAddToCart() {
-    if (product) {
-      dispatch(addItemToCart({ ...product, quantity }));
-    }
-  }
+  
 
   if (isLoading) {
     return (
@@ -41,6 +45,18 @@ const Product = () => {
       </div>
     );
   }
+
+  if (!product) {
+    return (
+      <div className="text-center text-white">
+        <h1 className="text-3xl">Product not found</h1>
+        <a onClick={() => router.push("/shop")} className="text-gray-400 text-xl cursor-pointer hover:opacity-75">
+          Go back to all products
+        </a>
+      </div>
+    );
+  }
+  
 
   return (
     <div className="bg-black text-white flex justify-center items-center h-[80vh] mt-[150px]">
@@ -67,9 +83,13 @@ const Product = () => {
             />
           </div>
           <div onClick={handleAddToCart}>
-            <Button className="bg-[#484444] font-family-aktiv-grotesk hover:bg-gray-600 text-white py-3 px-6 text-lg flex items-center gap-2">
-              <ShoppingCart size={20} /> ADD TO CART
-            </Button>
+          <Button
+            disabled={isLoading}
+            className={`bg-[#484444] font-family-aktiv-grotesk hover:bg-gray-600 text-white py-3 px-6 text-lg flex items-center gap-2 ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+          >
+            <ShoppingCart size={20} /> ADD TO CART
+          </Button>
+
           </div>
         </div>
       </div>
