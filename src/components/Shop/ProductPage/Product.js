@@ -24,10 +24,12 @@ const Product = () => {
         if (data) {
           setProduct(data);
         } else {
-          router.push("/404");
+          // Handle the case where the product doesn't exist
+          router.push("/404"); // Redirect to 404 page
         }
       } catch (error) {
         console.error("Error fetching product:", error);
+        // Handle the error (e.g., show a notification or redirect)
       } finally {
         setIsLoading(false);
       }
@@ -35,6 +37,12 @@ const Product = () => {
     fetchProduct();
   }, [slug]);
   
+
+  function handleAddToCart() {
+    if (product) {
+      dispatch(addItemToCart({ ...product, quantity }));
+    }
+  }
 
   if (isLoading) {
     return (
