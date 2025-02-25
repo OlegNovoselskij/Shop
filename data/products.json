@@ -1,0 +1,51 @@
+[
+    {
+      "id": 1,
+      "name": "Heavy Jacket",
+      "imageUrl": "https://plus.unsplash.com/premium_photo-1670623042512-1a5ecebc3f42?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8d2ludGVyJTIwamFja2V0fGVufDB8fDB8fHww",
+      "categoryId": 1,
+      "price": 10000,
+      "quantity": 1
+    },
+    {
+      "id": 2,
+      "name": "Country Suit",
+      "imageUrl": "https://www.styleseat.com/blog/wp-content/uploads/2023/09/man-with-locs-walking-scaled-2-1140x850.jpg",
+      "categoryId": 1,
+      "price": 40000,
+      "quantity": 1
+    },
+    {
+      "id": 3,
+      "name": "Oversized Wool",
+      "imageUrl": "https://www.petitestudionyc.com/cdn/shop/files/W2351-2_Allister_Wool_Coat_-_Charcoal_2.jpg?v=1727080832&width=700",
+      "categoryId": 2,
+      "price": 10000,
+      "quantity": 1
+    },
+    {
+      "id": 4,
+      "name": "Walker Jacket",
+      "imageUrl": "https://dz3aw12iizk17.cloudfront.net/cache/catalog/Pretty_Green/Pretty_green_walker_jacket_black_1-870x1110.jpg",
+      "categoryId": 1,
+      "price": 12000,
+      "quantity": 1
+    },
+    {
+      "id": 5,
+      "name": "Lace Necklace",
+      "imageUrl": "https://men.24tv.ua/resources/photos/news/202011/1458418.jpg?v=1661267032000",
+      "categoryId": 1,
+      "price": 5000,
+      "quantity": 1
+    },
+    {
+      "id": 6,
+      "name": "Relaxed Trousers",
+      "imageUrl": "https://www.jennikayne.com/cdn/shop/products/silk-relaxed-trouser-pant-navy-2.jpg?v=1677109564",
+      "categoryId": 2,
+      "price": 8000,
+      "quantity": 1
+    }
+  ]
+  
